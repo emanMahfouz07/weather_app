@@ -33,19 +33,12 @@ class _SearchViewState extends State<SearchView> {
               onSubmitted: (value) async {
                 var getWeatherCubit = BlocProvider.of<GetWeatherCubit>(context);
                 getWeatherCubit.getWeather(cityName: value);
-
-                // Wait for the weather data to be updated in the cubit
                 await Future.delayed(Duration(seconds: 1));
-                
-                  setState(() {
-                    
-                  });
+
+                setState(() {});
 
                 setState(() {
-                  // Add the latest weather data to the list
                   searchedWeather.add(getWeatherCubit.weatherModel!);
-                  // Navigate to the Weather Info Screen after fetching weather data
-         
                 });
               },
             ),
@@ -57,8 +50,7 @@ class _SearchViewState extends State<SearchView> {
                 WeatherModel weatherModel = searchedWeather[index];
                 return WeatherContainer(
                   cityName: weatherModel.cityName,
-                  image: weatherModel
-                      .weatherStatus, // Adjust this based on your requirements
+                  image: weatherModel.image,
                   status: weatherModel.weatherStatus,
                   temp: weatherModel.temp.round().toString(),
                 );

@@ -3,6 +3,7 @@ import 'package:weather_app/Services/weather_services.dart';
 
 class SearchPage extends StatelessWidget {
   String? cityName;
+   WeatherServices? servcies;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +22,8 @@ class SearchPage extends StatelessWidget {
             child: TextField(
               onSubmitted: (data) {
                 cityName = data;
-                WeatherServices servcies = WeatherServices();
-                servcies.getWeather(cityName: cityName!);
+               
+                servcies!.getCurrentWeather(cityName: cityName!);
               },
               style: const TextStyle(fontSize: 22),
               decoration: const InputDecoration(

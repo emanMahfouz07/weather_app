@@ -8,6 +8,7 @@ class WeatherContainer extends StatelessWidget {
       required this.status,
       required this.temp})
       : super(key: key);
+
   final String cityName;
   final String image;
   final String status;
@@ -18,33 +19,36 @@ class WeatherContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.blue,
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                 cityName,
-                  style: TextStyle(
+                  cityName,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                 status,
-                  style: TextStyle(
+                  status,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
                   ),
                 ),
                 Text(
-                temp,
-                  style: TextStyle(
+                  temp,
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -52,11 +56,14 @@ class WeatherContainer extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
-            Image.asset(
-             image,
-              width: 100,
-              height: 100,
+            const Spacer(),
+            Image.network(
+              image.startsWith('http') || image.startsWith('https')
+                  ? image
+                  : 'https:$image',
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
             ),
           ],
         ),

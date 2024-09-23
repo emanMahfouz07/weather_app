@@ -23,10 +23,35 @@ class WeatherInfoBody extends StatefulWidget {
 
 class _WeatherInfoBodyState extends State<WeatherInfoBody> {
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Find the current index based on the updated hour
+    setCurrentIndexToUpdatedHour();
+  }
+
+  void setCurrentIndexToUpdatedHour() {
+    WeatherModel weatherModel =
+        BlocProvider.of<GetWeatherCubit>(context).weatherModel!;
+    int updatedHour = weatherModel.date.hour;
+
+    // Find the index where the hourlyWeather time matches the updated hour
+    for (int i = 0; i < weatherModel.hourlyWeather.length; i++) {
+      if (weatherModel.hourlyWeather[i].time.hour == updatedHour) {
+        setState(() {
+          currentIndex = i;
+        });
+        break;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     WeatherModel weatherModel =
         BlocProvider.of<GetWeatherCubit>(context).weatherModel!;
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -119,7 +144,7 @@ class _WeatherInfoBodyState extends State<WeatherInfoBody> {
                                       ),
                                     ),
                                     const VerticalDivider(
-                                      color: Colors.black,
+                                      color: Colors.grey,
                                       indent: 15,
                                       endIndent: 20,
                                     ),
@@ -127,23 +152,6 @@ class _WeatherInfoBodyState extends State<WeatherInfoBody> {
                                 );
                               }),
                         )),
-                    // CustomContainer(
-                    //   text: 'Humidity',
-                    //   icon: Icons.water_drop,
-                    //   number: '80',
-                    // ),
-                    // Text(
-                    //   'Min Temp:  ${weatherModel.minTemp.round().toString()}',
-                    //   style: const TextStyle(
-                    //     fontSize: 16,
-                    //   ),
-                    // ),
-                    // Text(
-                    //   'Max Temp:  ${weatherModel.maxTemp.round().toString()}',
-                    //   style: const TextStyle(
-                    //     fontSize: 16,
-                    //   ),
-                    // ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),

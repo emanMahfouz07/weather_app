@@ -46,7 +46,6 @@ class WeatherModel {
               )),
     );
     DateTime parseDateTime(String time) {
-      // Format: "08:04 AM"
       final format = DateFormat('hh:mm a');
       return format.parse(time);
     }

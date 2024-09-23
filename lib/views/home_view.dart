@@ -40,7 +40,6 @@ class HomeView extends StatelessWidget {
             right: 16.0,
             child: IconButton(
               onPressed: () {
-                
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   return const SearchView();
